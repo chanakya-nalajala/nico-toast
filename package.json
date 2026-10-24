@@ -1,6 +1,6 @@
 {
   "name": "nico-toast",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Framework-agnostic gooey, physics-based toast notifications. Works with Angular, React, Next.js, Vue, Nuxt, Svelte and plain JS.",
   "keywords": [
     "toast",
