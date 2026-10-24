@@ -2,11 +2,28 @@
   "name": "nico-toast",
   "version": "0.1.0",
   "description": "Framework-agnostic gooey, physics-based toast notifications. Works with Angular, React, Next.js, Vue, Nuxt, Svelte and plain JS.",
+  "keywords": [
+    "toast",
+    "notification",
+    "angular",
+    "react",
+    "vue",
+    "svelte",
+    "nextjs",
+    "nuxt",
+    "framework-agnostic"
+  ],
+  "homepage": "https://github.com/chanakya-nalajala/nico-toast#readme",
+  "bugs": {
+    "url": "https://github.com/chanakya-nalajala/nico-toast/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chanakya-nalajala/nico-toast.git"
+  },
   "license": "MIT",
+  "author": "Chanakya",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -14,16 +31,25 @@
     },
     "./styles.css": "./dist/styles.css"
   },
-  "files": ["dist", "README.md", "LICENSE"],
-  "sideEffects": ["*.css"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "node scripts/gen-styles.mjs && tsup && node scripts/gen-styles.mjs",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["toast", "notification", "angular", "react", "vue", "svelte", "nextjs", "nuxt", "framework-agnostic"],
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "tsup": "^8.3.0",
     "typescript": "^5.6.0"
-  }
+  },
+  "module": "./dist/index.js",
+  "sideEffects": [
+    "*.css"
+  ]
 }
