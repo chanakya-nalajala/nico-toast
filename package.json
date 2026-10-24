@@ -1,0 +1,29 @@
+{
+  "name": "nico-toast",
+  "version": "0.1.0",
+  "description": "Framework-agnostic gooey, physics-based toast notifications. Works with Angular, React, Next.js, Vue, Nuxt, Svelte and plain JS.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": ["*.css"],
+  "scripts": {
+    "build": "node scripts/gen-styles.mjs && tsup && node scripts/gen-styles.mjs",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["toast", "notification", "angular", "react", "vue", "svelte", "nextjs", "nuxt", "framework-agnostic"],
+  "devDependencies": {
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0"
+  }
+}

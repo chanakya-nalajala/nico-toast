@@ -1,0 +1,485 @@
+/*
+ * Styles from sileo (https://github.com/hiaaryan/sileo), MIT License © Aaryan.
+ * Lightly adapted for Angular (reset block at the bottom).
+ */
+/* -------------------------------- Variables ------------------------------- */
+
+:root {
+  --nico-spring-easing: linear(
+    0,
+    0.002 0.6%,
+    0.007 1.2%,
+    0.015 1.8%,
+    0.026 2.4%,
+    0.041 3.1%,
+    0.06 3.8%,
+    0.108 5.3%,
+    0.157 6.6%,
+    0.214 8%,
+    0.467 13.7%,
+    0.577 16.3%,
+    0.631 17.7%,
+    0.682 19.1%,
+    0.73 20.5%,
+    0.771 21.8%,
+    0.808 23.1%,
+    0.844 24.5%,
+    0.874 25.8%,
+    0.903 27.2%,
+    0.928 28.6%,
+    0.952 30.1%,
+    0.972 31.6%,
+    0.988 33.1%,
+    1.01 35.7%,
+    1.025 38.5%,
+    1.034 41.6%,
+    1.038 45%,
+    1.035 50.1%,
+    1.012 64.2%,
+    1.003 73%,
+    0.999 83.7%,
+    1
+  );
+
+  --nico-duration: 600ms;
+  --nico-height: 40px;
+  --nico-width: 350px;
+
+  --nico-state-success: oklch(0.723 0.219 142.136);
+  --nico-state-loading: oklch(0.556 0 0);
+  --nico-state-error: oklch(0.637 0.237 25.331);
+  --nico-state-warning: oklch(0.795 0.184 86.047);
+  --nico-state-info: oklch(0.685 0.169 237.323);
+  --nico-state-action: oklch(0.623 0.214 259.815);
+}
+
+/* ---------------------------------- Toast --------------------------------- */
+
+[data-nico-toast] {
+  position: relative;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  width: var(--nico-width);
+  height: var(--_h, var(--nico-height));
+  opacity: 0;
+  transform: translateZ(0) scale(0.95);
+  transform-origin: center;
+  contain: layout style;
+  overflow: visible;
+}
+
+[data-nico-toast][data-state="loading"] {
+  cursor: default;
+}
+
+[data-nico-toast][data-ready="true"] {
+  opacity: 1;
+  transform: translateZ(0) scale(1);
+  transition:
+    transform calc(var(--nico-duration) * 0.66) var(--nico-spring-easing),
+    opacity calc(var(--nico-duration) * 0.66) var(--nico-spring-easing),
+    margin-bottom calc(var(--nico-duration) * 0.66) var(--nico-spring-easing),
+    margin-top calc(var(--nico-duration) * 0.66) var(--nico-spring-easing),
+    height var(--nico-duration) var(--nico-spring-easing);
+}
+
+/* Entry animation direction */
+[data-nico-viewport][data-position^="top"] [data-nico-toast]:not([data-ready="true"]) {
+  transform: translateY(-6px) scale(0.95);
+}
+
+[data-nico-viewport][data-position^="bottom"] [data-nico-toast]:not([data-ready="true"]) {
+  transform: translateY(6px) scale(0.95);
+}
+
+/* Exit */
+[data-nico-toast][data-ready="true"][data-exiting="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-nico-viewport][data-position^="top"]
+  [data-nico-toast][data-ready="true"][data-exiting="true"] {
+  transform: translateY(-6px) scale(0.95);
+}
+
+[data-nico-viewport][data-position^="bottom"]
+  [data-nico-toast][data-ready="true"][data-exiting="true"] {
+  transform: translateY(6px) scale(0.95);
+}
+
+/* ------------------------------- SVG Canvas ------------------------------- */
+
+[data-nico-canvas] {
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  transform: translateZ(0);
+  contain: layout style;
+  overflow: visible;
+}
+
+[data-nico-canvas][data-edge="top"] {
+  bottom: 0;
+  transform: scaleY(-1) translateZ(0);
+}
+
+[data-nico-canvas][data-edge="bottom"] {
+  top: 0;
+}
+
+[data-nico-svg] {
+  overflow: visible;
+}
+
+/* --------------------------------- Shapes --------------------------------- */
+
+/* --------------------------------- Header --------------------------------- */
+
+[data-nico-header] {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  height: var(--nico-height);
+  overflow: hidden;
+  left: var(--_px, 0px);
+  transform: var(--_ht);
+  max-width: var(--_pw);
+}
+
+[data-nico-toast][data-ready="true"] [data-nico-header] {
+  transition:
+    transform var(--nico-duration) var(--nico-spring-easing),
+    left var(--nico-duration) var(--nico-spring-easing),
+    max-width var(--nico-duration) var(--nico-spring-easing);
+}
+
+[data-nico-header][data-edge="top"] {
+  bottom: 0;
+}
+
+[data-nico-header][data-edge="bottom"] {
+  top: 0;
+}
+
+/* Header inner morphing */
+[data-nico-header-stack] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+[data-nico-header-inner] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateZ(0);
+}
+
+[data-nico-header-inner][data-layer="current"] {
+  position: relative;
+  z-index: 1;
+  animation: nico-header-enter var(--nico-duration) var(--nico-spring-easing) both;
+}
+
+[data-nico-header-inner][data-layer="current"]:not(:only-child),
+[data-nico-header-inner][data-exiting="true"] {
+  will-change: opacity, filter;
+}
+
+[data-nico-header-inner][data-layer="prev"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+[data-nico-header-inner][data-exiting="true"] {
+  animation: nico-header-exit calc(var(--nico-duration) * 0.7) ease forwards;
+}
+
+/* ---------------------------------- Badge --------------------------------- */
+
+[data-nico-badge] {
+  display: flex;
+  height: 24px;
+  width: 24px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  box-sizing: border-box;
+  border-radius: 9999px;
+  color: var(--nico-tone, currentColor);
+  background-color: var(--nico-tone-bg, transparent);
+}
+
+/* ---------------------------------- Title --------------------------------- */
+
+[data-nico-title] {
+  font-size: 0.825rem;
+  line-height: 1rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: var(--nico-tone, currentColor);
+}
+
+/* ------------------------------ State Colors ------------------------------ */
+
+:is([data-nico-badge], [data-nico-title], [data-nico-button])[data-state] {
+  --_c: var(--nico-state-success);
+}
+
+:is([data-nico-badge], [data-nico-title], [data-nico-button])[data-state="loading"] {
+  --_c: var(--nico-state-loading);
+}
+
+:is([data-nico-badge], [data-nico-title], [data-nico-button])[data-state="error"] {
+  --_c: var(--nico-state-error);
+}
+
+:is([data-nico-badge], [data-nico-title], [data-nico-button])[data-state="warning"] {
+  --_c: var(--nico-state-warning);
+}
+
+:is([data-nico-badge], [data-nico-title], [data-nico-button])[data-state="info"] {
+  --_c: var(--nico-state-info);
+}
+
+:is([data-nico-badge], [data-nico-title], [data-nico-button])[data-state="action"] {
+  --_c: var(--nico-state-action);
+}
+
+:is([data-nico-badge], [data-nico-title])[data-state] {
+  --nico-tone: var(--_c);
+  --nico-tone-bg: color-mix(in oklch, var(--_c) 20%, transparent);
+}
+
+/* --------------------------------- Content -------------------------------- */
+
+[data-nico-content] {
+  position: absolute;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  pointer-events: none;
+  opacity: var(--_co, 0);
+}
+
+[data-nico-content]:not([data-visible="true"]) {
+  content-visibility: hidden;
+}
+
+[data-nico-toast][data-ready="true"] [data-nico-content] {
+  transition: opacity calc(var(--nico-duration) * 0.08) ease calc(var(--nico-duration) * 0.04);
+}
+
+[data-nico-content][data-edge="top"] {
+  top: 0;
+}
+
+[data-nico-content][data-edge="bottom"] {
+  top: var(--nico-height);
+}
+
+[data-nico-content][data-visible="true"] {
+  pointer-events: auto;
+}
+
+[data-nico-toast][data-ready="true"] [data-nico-content][data-visible="true"] {
+  transition: opacity calc(var(--nico-duration) * 0.6) ease calc(var(--nico-duration) * 0.3);
+}
+
+[data-nico-description] {
+  width: 100%;
+  text-align: left;
+  padding: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  contain: layout style paint;
+  content-visibility: auto;
+}
+
+/* --------------------------------- Button --------------------------------- */
+
+[data-nico-button] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.75rem;
+  padding: 0 0.625rem;
+  margin-top: 0.75rem;
+  border-radius: 9999px;
+  border: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--nico-btn-color, currentColor);
+  background-color: var(--nico-btn-bg, transparent);
+  transition: background-color 150ms ease;
+}
+
+[data-nico-button]:hover {
+  background-color: var(--nico-btn-bg-hover, transparent);
+}
+
+[data-nico-button][data-state] {
+  --nico-btn-color: var(--_c);
+  --nico-btn-bg: color-mix(in oklch, var(--_c) 15%, transparent);
+  --nico-btn-bg-hover: color-mix(in oklch, var(--_c) 25%, transparent);
+}
+
+/* -------------------------------- Animations ------------------------------ */
+
+[data-nico-icon="spin"] {
+  animation: nico-spin 1s linear infinite;
+}
+
+@keyframes nico-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes nico-header-enter {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes nico-header-exit {
+  from {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  to {
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+/* -------------------------------- Viewports ------------------------------- */
+
+[data-nico-viewport] {
+  position: fixed;
+  z-index: 50;
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  pointer-events: none;
+  max-width: calc(100vw - 1.5rem);
+  contain: layout style;
+}
+
+[data-nico-viewport][data-position^="top"] [data-nico-toast]:not([data-ready="true"]) {
+  margin-bottom: calc(-1 * (var(--nico-height) + 0.75rem));
+}
+
+[data-nico-viewport][data-position^="bottom"] [data-nico-toast]:not([data-ready="true"]) {
+  margin-top: calc(-1 * (var(--nico-height) + 0.75rem));
+}
+
+/* Vertical edge */
+[data-nico-viewport][data-position^="top"] {
+  top: 0;
+  flex-direction: column-reverse;
+}
+
+[data-nico-viewport][data-position^="bottom"] {
+  bottom: 0;
+  flex-direction: column;
+}
+
+/* Horizontal alignment */
+[data-nico-viewport][data-position$="left"] {
+  left: 0;
+  align-items: flex-start;
+}
+
+[data-nico-viewport][data-position$="right"] {
+  right: 0;
+  align-items: flex-end;
+}
+
+[data-nico-viewport][data-position$="center"] {
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-nico-toast][data-ready="true"]:hover,
+  [data-nico-toast][data-ready="true"][data-exiting="true"] {
+    will-change: transform, opacity, height;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-nico-viewport],
+  [data-nico-viewport] *,
+  [data-nico-viewport] *::before,
+  [data-nico-viewport] *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+}
+
+/* --------------------------------- Themes -------------------------------- */
+
+[data-nico-viewport][data-theme="dark"] [data-nico-description] {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+[data-nico-viewport][data-theme="light"] [data-nico-description] {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ------------------------- Angular / no-preflight reset ------------------- */
+
+[data-nico-viewport],
+[data-nico-viewport] *,
+[data-nico-viewport] *::before,
+[data-nico-viewport] *::after {
+  box-sizing: border-box;
+}
+
+[data-nico-toast] {
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+[data-nico-toast]:focus-visible {
+  outline: 2px solid var(--nico-state-action);
+  outline-offset: 2px;
+  border-radius: 16px;
+}
+
+[data-nico-description] {
+  margin: 0;
+}
+
+[data-nico-button] {
+  text-decoration: none;
+  width: fit-content;
+}

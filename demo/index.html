@@ -1,0 +1,10 @@
+<!doctype html><html><body style="font-family:system-ui;margin:0">
+<button id="a">Success</button><button id="b">Action</button><button id="c">Promise</button><button id="d">Stack</button>
+<script type="module">
+import { nico } from '../dist/index.js';
+nico.configure({ position: 'top-center', theme: 'light' });
+a.onclick = () => nico.success({ title: 'Changes saved', description: 'Your form layout was saved.' });
+b.onclick = () => nico.action({ title: 'Record deleted', description: 'Undo within 6 seconds.', button: { title: 'Undo', onClick: () => nico.success({ title: 'Restored' }) } });
+c.onclick = () => nico.promise(new Promise(r => setTimeout(r, 1500)), { loading: { title: 'Saving' }, success: { title: 'Saved', description: 'All good.' }, error: { title: 'Failed' } });
+d.onclick = () => { nico.error({ id: 'e', title: 'Upload failed', position: 'bottom-right' }); nico.info({ id: 'i', title: 'Sync scheduled', position: 'bottom-right' }); };
+</script></body></html>
