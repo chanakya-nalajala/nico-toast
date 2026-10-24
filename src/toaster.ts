@@ -83,6 +83,7 @@ class Toaster {
           fill: item.fill ?? fallbackFill,
           pill: pillAlign(pos),
           expand: expandDir(pos),
+          dir: item.dir ?? store.config.dir,
           canExpand: active === undefined || active === item.id,
         } as const;
         let view = this.views.get(item.id);

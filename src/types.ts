@@ -23,6 +23,9 @@ export const NICO_POSITIONS = [
 
 export type NicoPosition = (typeof NICO_POSITIONS)[number];
 
+/** Text direction. `auto` picks it from the toast's text. */
+export type NicoDir = 'ltr' | 'rtl' | 'auto';
+
 export interface NicoOptions {
   /** Toasts sharing an id morph into each other. Omit to reuse the single default toast. */
   id?: string;
@@ -31,6 +34,8 @@ export interface NicoOptions {
   description?: string | HTMLElement;
   type?: NicoState;
   position?: NicoPosition;
+  /** Text direction. Defaults to the configured `dir`, else inherited from the page. */
+  dir?: NicoDir;
   /** Auto-dismiss in ms. `null` = sticky. Default 6000. */
   duration?: number | null;
   /** Custom badge icon: trusted SVG/HTML markup string or a DOM element. */
@@ -54,6 +59,8 @@ export type NicoTheme = 'light' | 'dark' | 'system';
 export interface NicoConfig {
   /** Default position. Default `top-right`. */
   position?: NicoPosition;
+  /** Default text direction. Omit to inherit from the page (e.g. `<html dir="rtl">`). */
+  dir?: NicoDir;
   /** Inverted contrast theme for the toast shape. Omit for a white toast. */
   theme?: NicoTheme;
   offset?: NicoOffset;

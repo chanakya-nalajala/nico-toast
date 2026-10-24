@@ -12,7 +12,7 @@ import {
 } from './constants';
 import { STATE_ICONS } from './icons';
 import { SPRING, SPRING_NO_BOUNCE, SpringAnimator } from './spring';
-import type { NicoButton, NicoItem, NicoState, NicoStyles } from './types';
+import type { NicoButton, NicoDir, NicoItem, NicoState, NicoStyles } from './types';
 
 export type Align = 'left' | 'center' | 'right';
 export type Edge = 'top' | 'bottom';
@@ -21,6 +21,7 @@ export interface ToastProps {
   fill: string;
   pill: Align;
   expand: Edge;
+  dir?: NicoDir;
   canExpand: boolean;
 }
 
@@ -365,6 +366,7 @@ export class ToastView {
     setAttr(el, 'data-edge', expand);
     setAttr(el, 'data-position', pill);
     setAttr(el, 'data-state', this.view.state);
+    setAttr(el, 'dir', this.props.dir ?? null);
 
     const shift = expand === 'bottom' ? 3 : -3;
     el.style.setProperty('--_h', `${open ? expanded : HEIGHT}px`);

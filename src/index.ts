@@ -97,6 +97,7 @@ export { NICO_POSITIONS } from './types';
 export type {
   NicoButton,
   NicoConfig,
+  NicoDir,
   NicoOffset,
   NicoOptions,
   NicoPosition,

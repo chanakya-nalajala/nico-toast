@@ -40,6 +40,7 @@ There is no `<Toaster />` to mount. The toaster attaches itself to `document.bod
 nico.configure({
   position: 'top-right',   // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
   theme: 'system',         // 'light' | 'dark' | 'system' (omit for a white toast)
+  dir: 'rtl',              // 'ltr' | 'rtl' | 'auto' (omit to inherit from the page)
   offset: { top: 72 },     // e.g. clear a fixed header
   options: { roundness: 16 },
 });
@@ -99,6 +100,7 @@ export default defineNuxtPlugin(() => {
 | `title` | `string` | state name | |
 | `description` | `string \| HTMLElement` | | Strings are rendered as text, which is XSS-safe. |
 | `position` | `NicoPosition` | configured default | |
+| `dir` | `'ltr' \| 'rtl' \| 'auto'` | configured default | Text direction. Without one the toast inherits the page's, e.g. `<html dir="rtl">`. |
 | `duration` | `number \| null` | `6000` | `null` = sticky |
 | `icon` | `string \| HTMLElement \| null` | state icon | String is **trusted** SVG/HTML markup. |
 | `fill` | `string` | theme-based | Toast shape colour |
